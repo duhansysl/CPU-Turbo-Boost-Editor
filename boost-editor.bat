@@ -68,7 +68,25 @@ exit /b
 
 :show
 echo.
-powercfg -query SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE | find "Current AC Power Setting Index"
+REM Powercfg çıktısını bir değişkene atıyoruz
+for /f "tokens=*" %%i in ('powercfg -query SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE ^| find "Current AC Power Setting Index"') do set "current_val=%%i"
+
+REM Hex değerini kontrol edip okunabilir karşılığını yazdıran IF blokları
+echo %current_val% | find "0x00000000" >nul
+if %errorlevel%==0 echo   Current AC Power Setting: Disabled
+
+echo %current_val% | find "0x00000001" >nul
+if %errorlevel%==0 echo   Current AC Power Setting: Enabled
+
+echo %current_val% | find "0x00000002" >nul
+if %errorlevel%==0 echo   Current AC Power Setting: Aggressive
+
+echo %current_val% | find "0x00000003" >nul
+if %errorlevel%==0 echo   Current AC Power Setting: Efficient Enabled
+
+echo %current_val% | find "0x00000004" >nul
+if %errorlevel%==0 echo   Current AC Power Setting: Efficient Aggressive
+
 echo.
 pause
 goto menu
