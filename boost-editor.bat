@@ -12,7 +12,7 @@ if %errorlevel% neq 0 (
 :menu
 cls
 echo =====================================
-echo        CPU BOOST SETTING MENU
+echo     CPU BOOST SETTING MENU V1.1
 echo              @duhansysl
 echo =====================================
 echo.

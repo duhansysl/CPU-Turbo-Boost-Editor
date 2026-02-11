@@ -14,8 +14,12 @@ Modes:
 * Efficient Aggressive – Balanced mode combining strong performance with improved thermal stability.
 * Show Current Boost Mode Value – Displays the currently active boost mode.
 
-### Last updated: 11.02.2026 - 13:49
+### Last updated: 11.02.2026 - 18:43
 
 ### SCREENSHOTS
 
 ![script-pre](https://github.com/user-attachments/assets/03538a75-73af-479d-8006-4e868d558edf)
+
+![script-after1](https://github.com/user-attachments/assets/28295547-f50a-4b1c-b22b-d01f4d6ecef0)
+
+![script-after2](https://github.com/user-attachments/assets/78f202db-422c-4766-a3dc-ad7ed72a0d63)
