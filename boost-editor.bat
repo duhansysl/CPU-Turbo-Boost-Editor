@@ -1,18 +1,13 @@
 @echo off
 title CPU Boost Advanced Control
 
-:: Admin kontrol
-net session >nul 2>&1
-if %errorlevel% neq 0 (
-    echo Administrator privileges are required...
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
-    exit
-)
+if "%~1"==":admin" goto :menu
+powershell -Command "Start-Process '%~f0' -ArgumentList ':admin' -Verb RunAs" & exit
 
 :menu
 cls
 echo =====================================
-echo     CPU BOOST SETTING MENU V1.1
+echo     CPU BOOST SETTING MENU V1.2
 echo              @duhansysl
 echo =====================================
 echo.
@@ -26,15 +21,15 @@ echo 4 - Efficient Aggressive (4)
 echo 5 - Show Current Boost Mode Value
 echo 6 - Exit
 echo.
-set /p secim=Enter your choice: 
+set /p choice=Enter your choice: 
 
-if "%secim%"=="0" goto set0
-if "%secim%"=="1" goto set1
-if "%secim%"=="2" goto set2
-if "%secim%"=="3" goto set3
-if "%secim%"=="4" goto set4
-if "%secim%"=="5" goto show
-if "%secim%"=="6" exit
+if "%choice%"=="0" goto set0
+if "%choice%"=="1" goto set1
+if "%choice%"=="2" goto set2
+if "%choice%"=="3" goto set3
+if "%choice%"=="4" goto set4
+if "%choice%"=="5" goto show
+if "%choice%"=="6" exit
 goto menu
 
 :set0
@@ -68,24 +63,22 @@ exit /b
 
 :show
 echo.
-REM Powercfg çıktısını bir değişkene atıyoruz
 for /f "tokens=*" %%i in ('powercfg -query SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE ^| find "Current AC Power Setting Index"') do set "current_val=%%i"
 
-REM Hex değerini kontrol edip okunabilir karşılığını yazdıran IF blokları
 echo %current_val% | find "0x00000000" >nul
-if %errorlevel%==0 echo   Current AC Power Setting: Disabled
+if %errorlevel%==0 echo   Current Turbo Boost Setting: Disabled
 
 echo %current_val% | find "0x00000001" >nul
-if %errorlevel%==0 echo   Current AC Power Setting: Enabled
+if %errorlevel%==0 echo   Current Turbo Boost Setting: Enabled
 
 echo %current_val% | find "0x00000002" >nul
-if %errorlevel%==0 echo   Current AC Power Setting: Aggressive
+if %errorlevel%==0 echo   Current Turbo Boost Setting: Aggressive
 
 echo %current_val% | find "0x00000003" >nul
-if %errorlevel%==0 echo   Current AC Power Setting: Efficient Enabled
+if %errorlevel%==0 echo   Current Turbo Boost Setting: Efficient Enabled
 
 echo %current_val% | find "0x00000004" >nul
-if %errorlevel%==0 echo   Current AC Power Setting: Efficient Aggressive
+if %errorlevel%==0 echo   Current Turbo Boost Setting: Efficient Aggressive
 
 echo.
 pause
